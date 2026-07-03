@@ -432,6 +432,10 @@ def reports():
 
 # ---------------------------------------------------------------
 
+# Initialize the database whether this file is run directly (`python app.py`)
+# or imported by a WSGI server like gunicorn (`gunicorn app:app`).
+init_db()
+
 if __name__ == "__main__":
-    init_db()
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=True)
