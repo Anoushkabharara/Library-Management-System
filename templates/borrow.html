@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Borrow / Return - LMS{% endblock %}
+{% block content %}
+<h1>Borrow / Return</h1>
+
+<details class="panel" open>
+    <summary>Check out a book</summary>
+    <form method="post" class="form-grid">
+        <label>Member
+            <select name="member_id" required>
+                <option value="" disabled selected>Select member</option>
+                {% for m in members %}
+                <option value="{{ m.Member_ID }}">{{ m.Name }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>Available copy
+            <select name="copy_id" required>
+                <option value="" disabled selected>Select a copy</option>
+                {% for c in available_copies %}
+                <option value="{{ c.Copy_ID }}">{{ c.Title }} (Shelf {{ c.Shelf_Location or "?" }})</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>Loan length (days) <input type="number" name="loan_days" value="14" min="1"></label>
+        <button type="submit">Check Out</button>
+    </form>
+</details>
+
+<h2>Active Loans</h2>
+<table class="data-table">
+    <thead>
+        <tr><th>Member</th><th>Title</th><th>Borrowed</th><th>Due</th><th>Status</th><th></th></tr>
+    </thead>
+    <tbody>
+        {% for l in active_loans %}
+        <tr class="{{ 'row-overdue' if l.Is_Overdue else '' }}">
+            <td>{{ l.Member_Name }}</td>
+            <td>{{ l.Title }}</td>
+            <td>{{ l.Borrow_Date }}</td>
+            <td>{{ l.Due_Date }}</td>
+            <td>{{ "Overdue" if l.Is_Overdue else "On time" }}</td>
+            <td>
+                <form method="post" action="{{ url_for('return_book', transaction_id=l.Transaction_ID) }}">
+                    <button type="submit">Return</button>
+                </form>
+            </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="6">No active loans.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

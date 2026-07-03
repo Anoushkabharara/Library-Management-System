@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - LMS{% endblock %}
+{% block content %}
+<h1>Dashboard</h1>
+<div class="stat-grid">
+    <div class="stat-card">
+        <div class="stat-number">{{ stats.total_books }}</div>
+        <div class="stat-label">Books (titles)</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-number">{{ stats.available_copies }}/{{ stats.total_copies }}</div>
+        <div class="stat-label">Copies available</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-number">{{ stats.total_members }}</div>
+        <div class="stat-label">Members</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-number">{{ stats.active_borrows }}</div>
+        <div class="stat-label">Active loans</div>
+    </div>
+    <div class="stat-card {{ 'stat-warning' if stats.overdue else '' }}">
+        <div class="stat-number">{{ stats.overdue }}</div>
+        <div class="stat-label">Overdue books</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-number">{{ stats.pending_reservations }}</div>
+        <div class="stat-label">Pending reservations</div>
+    </div>
+</div>
+
+<p class="hint">Use the nav above to manage books, members, checkouts/returns, reservations,
+   and view reports.</p>
+{% endblock %}

@@ -1,0 +1,236 @@
+/* ============================================================
+   Library Management System — "Reading Room" theme
+   Palette: warm paper background, deep navy ink, brass accent
+   ============================================================ */
+
+:root {
+    --paper: #f7f2e7;
+    --card: #fffdf8;
+    --ink: #1f2430;
+    --ink-muted: #6b6558;
+    --navy: #17233b;
+    --navy-light: #2c3a5c;
+    --brass: #b8874b;
+    --brass-light: #e7d3ab;
+    --line: #ddd3bd;
+    --danger: #9c3b3b;
+    --success-bg: #eef3e6;
+    --success-text: #3d5a2c;
+    --error-bg: #f6e6e2;
+    --error-text: #8c3b2a;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+    line-height: 1.5;
+}
+
+h1, h2 {
+    font-family: Georgia, "Iowan Old Style", serif;
+    letter-spacing: 0.02em;
+    color: var(--navy);
+    border-bottom: 2px solid var(--brass);
+    padding-bottom: 0.35rem;
+}
+
+h1 { font-size: 1.9rem; margin-top: 0; }
+h2 { font-size: 1.25rem; margin-top: 2.5rem; }
+
+/* ---- Navbar styled like a card-catalog drawer label ---- */
+.navbar {
+    background: var(--navy);
+    color: var(--brass-light);
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0.9rem 2rem;
+    border-bottom: 4px solid var(--brass);
+}
+
+.navbar .brand {
+    font-weight: bold;
+    font-size: 1.15rem;
+    color: #fff;
+    margin-right: 1rem;
+    letter-spacing: 0.04em;
+}
+
+.navbar a {
+    color: var(--brass-light);
+    text-decoration: none;
+    font-size: 0.95rem;
+    padding: 0.25rem 0;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.navbar a:hover {
+    color: #fff;
+    border-color: var(--brass);
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* ---- Flash messages ---- */
+.flash {
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    margin-bottom: 1.25rem;
+    font-family: system-ui, sans-serif;
+    font-size: 0.95rem;
+}
+.flash-success { background: var(--success-bg); color: var(--success-text); }
+.flash-error { background: var(--error-bg); color: var(--error-text); }
+
+/* ---- Stat cards (index-card look) ---- */
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.stat-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--brass);
+    border-radius: 3px;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 1px 2px 4px rgba(0,0,0,0.04);
+}
+
+.stat-card.stat-warning { border-left-color: var(--danger); }
+
+.stat-number {
+    font-family: "Courier New", monospace;
+    font-size: 1.9rem;
+    font-weight: bold;
+    color: var(--navy);
+}
+
+.stat-label {
+    font-family: system-ui, sans-serif;
+    font-size: 0.8rem;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 0.25rem;
+}
+
+.hint {
+    font-family: system-ui, sans-serif;
+    color: var(--ink-muted);
+    font-size: 0.9rem;
+}
+
+/* ---- Forms ---- */
+.panel {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.panel summary {
+    font-family: system-ui, sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--navy-light);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.9rem;
+    margin-top: 1rem;
+    font-family: system-ui, sans-serif;
+}
+
+.form-grid label {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.85rem;
+    color: var(--ink-muted);
+    gap: 0.3rem;
+}
+
+.form-grid input,
+.form-grid select {
+    font-family: system-ui, sans-serif;
+    padding: 0.5rem;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    background: #fff;
+    color: var(--ink);
+}
+
+.form-grid button,
+button[type="submit"],
+.data-table button {
+    font-family: system-ui, sans-serif;
+    background: var(--navy);
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 0.5rem 0.9rem;
+    cursor: pointer;
+    font-size: 0.85rem;
+    align-self: end;
+}
+
+.form-grid button:hover,
+.data-table button:hover {
+    background: var(--navy-light);
+}
+
+.btn-danger {
+    background: var(--danger) !important;
+}
+.btn-danger:hover {
+    background: #7d2c2c !important;
+}
+
+/* ---- Tables (ledger look) ---- */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: system-ui, sans-serif;
+    font-size: 0.9rem;
+    background: var(--card);
+    box-shadow: 1px 2px 4px rgba(0,0,0,0.04);
+}
+
+.data-table th {
+    text-align: left;
+    background: var(--navy);
+    color: var(--brass-light);
+    padding: 0.6rem 0.75rem;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.data-table td {
+    padding: 0.55rem 0.75rem;
+    border-bottom: 1px solid var(--line);
+}
+
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:hover td { background: #fbf6ea; }
+
+.row-overdue td {
+    background: var(--error-bg);
+    color: var(--error-text);
+}

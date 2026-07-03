@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Members - LMS{% endblock %}
+{% block content %}
+<h1>Member Management</h1>
+
+<details class="panel" open>
+    <summary>Add a new member</summary>
+    <form method="post" class="form-grid">
+        <label>Name <input type="text" name="name" required></label>
+        <label>Email <input type="email" name="email" required></label>
+        <label>Phone <input type="text" name="phone"></label>
+        <button type="submit">Add Member</button>
+    </form>
+</details>
+
+<table class="data-table">
+    <thead>
+        <tr>
+            <th>Name</th><th>Email</th><th>Phone</th><th>Registered</th>
+            <th>Active Borrows</th><th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for m in members %}
+        <tr>
+            <td>{{ m.Name }}</td>
+            <td>{{ m.Email }}</td>
+            <td>{{ m.Phone or "—" }}</td>
+            <td>{{ m.Registration_Date }}</td>
+            <td>{{ m.Active_Borrows or 0 }}</td>
+            <td>
+                <form method="post" action="{{ url_for('delete_member', member_id=m.Member_ID) }}"
+                      onsubmit="return confirm('Remove this member?');">
+                    <button type="submit" class="btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="6">No members yet.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Reports - LMS{% endblock %}
+{% block content %}
+<h1>Reports</h1>
+
+<h2>Overdue Books</h2>
+<table class="data-table">
+    <thead><tr><th>Member</th><th>Title</th><th>Borrowed</th><th>Due</th><th>Days Overdue</th></tr></thead>
+    <tbody>
+        {% for r in overdue_books %}
+        <tr class="row-overdue">
+            <td>{{ r.Member_Name }}</td><td>{{ r.Title }}</td>
+            <td>{{ r.Borrow_Date }}</td><td>{{ r.Due_Date }}</td><td>{{ r.Days_Overdue }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="5">No overdue books. 🎉</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2>Top 5 Most Borrowed Books</h2>
+<table class="data-table">
+    <thead><tr><th>Title</th><th>Times Borrowed</th></tr></thead>
+    <tbody>
+        {% for p in popular_books %}
+        <tr><td>{{ p.Title }}</td><td>{{ p.Times_Borrowed }}</td></tr>
+        {% else %}
+        <tr><td colspan="2">No borrowing history yet.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2>Reservation Status Summary</h2>
+<table class="data-table">
+    <thead><tr><th>Status</th><th>Count</th></tr></thead>
+    <tbody>
+        {% for s in reservation_status %}
+        <tr><td>{{ s.Status }}</td><td>{{ s.Count }}</td></tr>
+        {% else %}
+        <tr><td colspan="2">No reservations yet.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2>Books Never Borrowed</h2>
+<table class="data-table">
+    <thead><tr><th>Title</th></tr></thead>
+    <tbody>
+        {% for n in never_borrowed %}
+        <tr><td>{{ n.Title }}</td></tr>
+        {% else %}
+        <tr><td>Every book has been borrowed at least once.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2>Member Borrowing History</h2>
+<table class="data-table">
+    <thead><tr><th>Member</th><th>Title</th><th>Borrowed</th><th>Due</th><th>Status</th></tr></thead>
+    <tbody>
+        {% for h in borrowing_history %}
+        <tr>
+            <td>{{ h.Member_Name }}</td><td>{{ h.Title }}</td>
+            <td>{{ h.Borrow_Date }}</td><td>{{ h.Due_Date }}</td><td>{{ h.Status }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="5">No borrowing history yet.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

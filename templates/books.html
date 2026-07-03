@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Books - LMS{% endblock %}
+{% block content %}
+<h1>Book Management</h1>
+
+<details class="panel" open>
+    <summary>Add a new book</summary>
+    <form method="post" class="form-grid">
+        <label>Title <input type="text" name="title" required></label>
+        <label>ISBN <input type="text" name="isbn"></label>
+        <label>Author <input type="text" name="author_name" placeholder="e.g. George Orwell"></label>
+        <label>Publisher <input type="text" name="publisher_name"></label>
+        <label>Year Published <input type="number" name="year_published" min="0"></label>
+        <label>Number of copies <input type="number" name="copies" value="1" min="1"></label>
+        <label>Shelf location <input type="text" name="shelf_location" placeholder="e.g. A1"></label>
+        <button type="submit">Add Book</button>
+    </form>
+</details>
+
+<table class="data-table">
+    <thead>
+        <tr>
+            <th>Title</th><th>Author(s)</th><th>Publisher</th><th>Year</th>
+            <th>ISBN</th><th>Copies (avail/total)</th><th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for b in books %}
+        <tr>
+            <td>{{ b.Title }}</td>
+            <td>{{ b.Authors or "—" }}</td>
+            <td>{{ b.Publisher_Name or "—" }}</td>
+            <td>{{ b.Year_Published or "—" }}</td>
+            <td>{{ b.ISBN or "—" }}</td>
+            <td>{{ b.Available_Copies or 0 }}/{{ b.Total_Copies }}</td>
+            <td>
+                <form method="post" action="{{ url_for('delete_book', book_id=b.Book_ID) }}"
+                      onsubmit="return confirm('Remove this book and all its copies?');">
+                    <button type="submit" class="btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="7">No books yet.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
